@@ -22,6 +22,18 @@ public static class RacerParser
         return new Racer(name, dateofBirth, category, isVeteran);
     }
 
+    public static (Racer?, List<string>?) ParseRacerWithPotentialErrors(string racerData)
+    {
+        try
+        {
+            return (ParseRacer(racerData), null);
+        }
+        catch (Exception ex)
+        {
+            return (null, new List<string> { ex.Message });
+        }
+    }
+
     private static RacerCategory RacerCategoryFromString(string racerCategory)
     {
         switch (racerCategory)
