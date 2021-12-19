@@ -28,12 +28,33 @@ public class RacerParserTests
     {
         return new List<object[]> {
 
-            new object[]{ 
-                "Dick Dastardly,09/09/1979,Masters,true", 
-                "Dick Dastardly", 
-                new DateOnly(1979,09,09), 
-                RacerCategory.Masters, 
-                true  }
+            new object[]{
+                "Dick Dastardly,09/09/1979,Masters,true",
+                "Dick Dastardly",
+                new DateOnly(1979,09,09),
+                RacerCategory.Masters,
+                true  },
+
+            new object[]{
+                "The Slag Brothers , 1983-04-28,Open,false",
+                "The Slag Brothers",
+                new DateOnly(1983,04,28),
+                RacerCategory.Open,
+                false },
+
+            new object[]{
+                " The Gruesome Twosome , 2002 06 26,U20,false",
+                "The Gruesome Twosome",
+                new DateOnly(2002,06,26),
+                RacerCategory.U20,
+                false },
+
+            new object[]{
+                "Professor Pat Pending, 2012 12 12,U13,TRUE",
+                "Professor Pat Pending",
+                new DateOnly(2012,12,12),
+                RacerCategory.U13,
+                true }
         };
     }
 }

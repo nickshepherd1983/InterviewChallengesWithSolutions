@@ -28,6 +28,12 @@ public static class RacerParser
         {
             case "Masters":
                 return RacerCategory.Masters;
+            case "Open":
+                return RacerCategory.Open;
+            case "U20":
+                return RacerCategory.U20;
+            case "U13":
+                return RacerCategory.U13;
             default:
                 throw new InvalidDataException("Racer category is not valid");
         }
