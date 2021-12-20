@@ -1,6 +1,6 @@
 ﻿namespace InterviewChallenge;
 
-public class Racer
+public record Racer
 {
     public string Name { get; set; }
     public DateOnly DateOfBirth { get; set; }
