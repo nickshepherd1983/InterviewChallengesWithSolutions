@@ -9,7 +9,7 @@ public class Challenge4
     [MemberData(nameof(CsvRacerData))]
     public void Racers_can_be_prased_from_csv(string racerData)
     {
-        var sut = RacerParser.ParseRacers(racerData);
+        var sut = RacerParserX.ParseRacers(racerData);
 
         Assert.Equal(7, sut.Count);
         Assert.Equal(4, sut.Count(i => i.Result != null));

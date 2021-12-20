@@ -18,7 +18,7 @@ The Gruesome Twosome , 2002 06 26,U20,false
 Professor Pat Pending, 2012 12 12,U13,TRUE";
         var racerData = racersCsvData.Split(Environment.NewLine);
 
-        var sut = RacerParser.ParseRacers(racerData);
+        var sut = RacerParserX.ParseRacers(racerData);
 
         Assert.Equal(8, sut.Count);
         Assert.Equal(4, sut.Count(i => i.Result != null));

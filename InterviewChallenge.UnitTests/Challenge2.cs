@@ -11,7 +11,7 @@ public class Challenge2
         string racerData,
         string errorMessage)
     {
-        var sut = RacerParser.ParseRacerWithPotentialErrors(racerData);
+        var sut = RacerParserX.ParseRacerWithPotentialErrors(racerData);
 
         Assert.Null(sut.Result);
         Assert.Contains(errorMessage, sut.Errors);

@@ -14,7 +14,7 @@ public class Challenge1
         RacerCategory category,
         bool isVetran)
     {
-        var sut = RacerParser.ParseRacer(racerData);
+        var sut = RacerParserX.ParseRacer(racerData);
 
         Assert.Equal(name, sut.Name);
         Assert.Equal(dateOfBirth, sut.DateOfBirth);
