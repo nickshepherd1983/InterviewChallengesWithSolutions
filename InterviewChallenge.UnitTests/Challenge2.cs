@@ -11,10 +11,10 @@ public class Challenge2
         string racerData,
         string errorMessage)
     {
-        var sut = RacerParserX.ParseRacerWithPotentialErrors(racerData);
+        var sut = RacerParser.ParseRacerWithPotentialErrors(racerData);
 
-        Assert.Null(sut.Item1);
-        Assert.Contains(errorMessage, sut.Item2);
+        Assert.Null(sut.Result);
+        Assert.Contains(errorMessage, sut.Errors);
     }
 
     private static List<object[]> InvalidRacerData()

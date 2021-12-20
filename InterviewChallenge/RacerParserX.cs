@@ -7,17 +7,17 @@ public static class RacerParserX
         throw new NotImplementedException();
     }
 
-    public static (Racer?, List<string>?) ParseRacerWithPotentialErrors(string racerData)
+    public static ParserResult<Racer> ParseRacerWithPotentialErrors(string racerData)
     {
         throw new NotImplementedException();
     }
 
-    public static List<(Racer?, List<string>?)> ParseRacers(IEnumerable<string> racersData)
+    public static List<ParserResult<Racer>> ParseRacers(IEnumerable<string> racersData)
     {
         throw new NotImplementedException();
     }
 
-    public static List<(Racer?, List<string>?)> ParseRacers(string racersCsvData)
+    public static List<ParserResult<Racer>> ParseRacers(string racersCsvData)
     {
         throw new NotImplementedException();
     }

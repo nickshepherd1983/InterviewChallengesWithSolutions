@@ -22,16 +22,20 @@ public static class RacerParser
         return new Racer(name, dateofBirth, category, isVeteran);
     }
 
-    public static (Racer?, List<string>?) ParseRacerWithPotentialErrors(string racerData)
+    public static ParserResult<Racer> ParseRacerWithPotentialErrors(string racerData)
     {
+        var parserResult = new ParserResult<Racer>();
+
         try
         {
-            return (ParseRacer(racerData), null);
+            parserResult.Result = ParseRacer(racerData);
         }
         catch (Exception ex)
         {
-            return (null, new List<string> { ex.Message });
+            parserResult.Errors.Add(ex.Message);
         }
+
+        return parserResult;
     }
 
     private static RacerCategory RacerCategoryFromString(string racerCategory)
@@ -46,9 +50,9 @@ public static class RacerParser
         };
     }
 
-    public static List<(Racer?, List<string>?)> ParseRacers(IEnumerable<string> racersData)
+    public static List<ParserResult<Racer>> ParseRacers(IEnumerable<string> racersData)
     {
-        var racers = new List<(Racer?, List<string>?)>();
+        var racers = new List<ParserResult<Racer>>();
 
         foreach (var racerData in racersData)
             racers.Add(ParseRacerWithPotentialErrors(racerData));
@@ -56,30 +60,23 @@ public static class RacerParser
         return racers;
     }
 
-    public static List<(Racer?, List<string>?)> ParseRacers(string racersCsvData)
+    public static List<ParserResult<Racer>> ParseRacers(string racersCsvData)
     {
-        var racers = new List<(Racer?, List<string>?)>();
+        var racers = new List<ParserResult<Racer>>();
         int[]? columnIndexs = null;
 
         foreach (var racerData in racersCsvData.Split(Environment.NewLine))
         {
             if (columnIndexs == null)
-                columnIndexs = ParseColumnIndexs(racerData);
+                columnIndexs = ParseHeaderRow(racerData);
             else
-            {
-                var columnData = racerData.Split(',');
-                racers.Add(ParseRacerWithPotentialErrors(
-                    $"{columnData[columnIndexs[0]]}," +
-                    $"{columnData[columnIndexs[1]]}," +
-                    $"{columnData[columnIndexs[2]]}," +
-                    $"{columnData[columnIndexs[3]]}"));
-            }
+                ParseDataRow(racers, columnIndexs, racerData);
         }
 
         return racers;
     }
 
-    private static int[] ParseColumnIndexs(string racerData)
+    private static int[] ParseHeaderRow(string racerData)
     {
         int[]? columnIndexs = new int[4];
         int i = 0;
@@ -106,5 +103,19 @@ public static class RacerParser
         }
 
         return columnIndexs;
+    }
+
+    private static void ParseDataRow(List<ParserResult<Racer>> racers, int[] columnIndexs, string racerData)
+    {
+        var columnData = racerData.Split(',');
+
+        racers.Add(ParseRacerWithPotentialErrors(
+            string.Format("{0},{1},{2},{3}",
+            columnData[columnIndexs[0]],
+            columnData[columnIndexs[1]],
+            columnData[columnIndexs[2]],
+            columnData[columnIndexs[3]])
+            )
+        );
     }
 }
