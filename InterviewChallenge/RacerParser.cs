@@ -36,19 +36,14 @@ public static class RacerParser
 
     private static RacerCategory RacerCategoryFromString(string racerCategory)
     {
-        switch (racerCategory)
+        return racerCategory switch
         {
-            case "Masters":
-                return RacerCategory.Masters;
-            case "Open":
-                return RacerCategory.Open;
-            case "U20":
-                return RacerCategory.U20;
-            case "U13":
-                return RacerCategory.U13;
-            default:
-                throw new InvalidDataException("Racer category is not valid");
-        }
+            "Masters" => RacerCategory.Masters,
+            "Open" => RacerCategory.Open,
+            "U20" => RacerCategory.U20,
+            "U13" => RacerCategory.U13,
+            _ => throw new InvalidDataException("Racer category is not valid"),
+        };
     }
 
     public static List<(Racer?, List<string>?)> ParseRacers(IEnumerable<string> racersData)

@@ -1,1 +1,1 @@
-﻿global using InterviewChallenge;
+﻿global using Xunit;
