@@ -16,15 +16,15 @@ public class RacerParserTests
         RacerCategory category,
         bool isVetran)
     {
-        var racer = RacerParser.ParseRacer(racerData);
+        var sut = RacerParser.ParseRacer(racerData);
 
-        Assert.Equal(name, racer.Name);
-        Assert.Equal(dateOfBirth, racer.DateOfBirth);
-        Assert.Equal(category, racer.Category);
-        Assert.Equal(isVetran, racer.IsVeteran);
+        Assert.Equal(name, sut.Name);
+        Assert.Equal(dateOfBirth, sut.DateOfBirth);
+        Assert.Equal(category, sut.Category);
+        Assert.Equal(isVetran, sut.IsVeteran);
     }
 
-    public static List<object[]> ValidRacerData()
+    private static List<object[]> ValidRacerData()
     {
         return new List<object[]> {
 
@@ -67,13 +67,13 @@ public class RacerParserTests
         string racerData, 
         string errorMessage)
     {
-        var racerOrError = RacerParser.ParseRacerWithPotentialErrors(racerData);
+        var sut = RacerParser.ParseRacerWithPotentialErrors(racerData);
 
-        Assert.Null(racerOrError.Item1);
-        Assert.Contains(errorMessage, racerOrError.Item2);
+        Assert.Null(sut.Item1);
+        Assert.Contains(errorMessage, sut.Item2);
     }
 
-    public static List<object[]> InvalidRacerData()
+    private static List<object[]> InvalidRacerData()
     {
         return new List<object[]>()
         {
@@ -93,5 +93,28 @@ public class RacerParserTests
                 "The Slag Brothers , 1983-04-28,Closed,true",
                 "Racer category is not valid"},
         };
+    }
+
+    /// <summary>
+    /// CHALLENGE 3: Implement ParseRacers such that it takes a collection of strings.
+    /// </summary>
+    [Fact]
+    public void Racers_can_be_prased_from_collection()
+    {
+        var racerDataString = @"
+The Slag Brothers , 198304-28,Open,false
+The Slag Brothers , 1983-04-28,Open,1
+The Slag Brothers , 1983-04-28,Closed,true
+Dick Dastardly,09/09/1979,Masters,true
+The Slag Brothers , 1983-04-28,Open,false
+The Gruesome Twosome , 2002 06 26,U20,false
+Professor Pat Pending, 2012 12 12,U13,TRUE";
+        var racerData = racerDataString.Split(Environment.NewLine);
+
+        var sut = RacerParser.ParseRacers(racerData);
+
+        Assert.Equal(8, sut.Count);
+        Assert.Equal(4, sut.Count(i => i.Item1 != null));
+        Assert.Equal(4, sut.Count(i => i.Item2 != null));
     }
 }

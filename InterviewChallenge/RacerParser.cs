@@ -50,4 +50,14 @@ public static class RacerParser
                 throw new InvalidDataException("Racer category is not valid");
         }
     }
+
+    public static List<(Racer?, List<string>?)> ParseRacers(IEnumerable<string> racersData)
+    {
+        var racers = new List<(Racer?, List<string>?)>();
+
+        foreach (var racerData in racersData)
+            racers.Add(ParseRacerWithPotentialErrors(racerData));
+
+        return racers;
+    }
 }
